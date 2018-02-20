@@ -8,70 +8,34 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            #map {
-                height: 400px;
-                width: 1000px;
-            }
-        </style>
+        <title>Human Assistant</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="js/MapScript.js"></script>
+
     </head>
+
     <body>
-        <h3></h3>
-    <center><div id="map"></div></center>
-    <script>
-        var map, infoWindow;
-        function initMap() {
-
-            var uluru;
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: uluru
-            });
-            var marker = new google.maps.Marker({
-                position: uluru,
-                map: map
-            });
-
-
-
-            infoWindow = new google.maps.InfoWindow;
-
-            // Try HTML5 geolocation.
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('Location found.');
-                    infoWindow.open(map);
-                    map.setCenter(pos);
-                }, function () {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                // Browser doesn't support Geolocation
-                handleLocationError(false, infoWindow, map.getCenter());
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('Location not found. Please accept permission.');
-                infoWindow.open(map);
-            }
-        }
-
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                    'Error: The Geolocation service failed.' :
-                    'Error: Your browser doesn\'t support geolocation.');
-            infoWindow.open(map);
-        }
-
-
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1eb_09Gm7rRg3SOMROgnIoTG5_kdrycA&callback=initMap">
-    </script>
-</body>
+        <div class="header">
+            <nav>
+                <a href="Home.jsp"><img src="img/Logo.png" class="logo"></a>
+                <ul class="nav nav-pills">
+                    <li><a href="Emergency.jsp">Emergency</a></li>
+                    <li><a href="SOS.jsp">SOS</a></li>
+                    <li><a href="Lost.jsp">Lost</a></li>
+                        
+                </ul>
+            </nav>
+        </div>
+        <div id="map"></div>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1eb_09Gm7rRg3SOMROgnIoTG5_kdrycA&callback=initMap">
+        </script>
+        
+    </body>
 </html>
