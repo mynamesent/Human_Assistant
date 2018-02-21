@@ -3,61 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var latitude;
+var longitude;
+var infowindow = new google.maps.InfoWindow();
+var marker, i;
+var img1 = 'img/hospital.png';
+
 var map;
-function initMap() {
+const HospitalLocation = [];
+const hospital = Array.from(document.querySelectorAll("input[name^='hos[']"))
+hospital.map(hos => {
+    HospitalLocation.push(JSON.parse(hos.value))
+})
+function initMap(latitude, longitude) {
+    console.log("initMap")
+    if (latitude == undefined || longitude == undefined) {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 13.6497215, lng: 100.4924436},
+            zoom: 20
+        });
+        console.log(">>>>>" + latitude);
+        $("#myModal").modal('show');
+    } else {
+        document.getElementById("userLocation").innerHTML = latitude + " , " + longitude;
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: latitude, lng: longitude},
+            zoom: 20
+        });
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(latitude, longitude),
+            map: map,
+        }
+        )
+        function getLocation() {
 
-
-
-var uluru = {lat: 13.7563, lng: 100.5018};
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: uluru,
-        mapTypeId: 'roadmap'
-    });
-
-//    var iconBase = 'https://map-icons.com/';
-//    var marker = new google.maps.Marker({
-//        position: myLatLng,
-//        map: map,
-//        icon: iconBase + 'map-icon-hospital'
-//    });
-
-      var iconBase = 'https://maps.google.com/mapfiles/kml/pal4/';
-  var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(13.757316, 100.485416),
-    map: map,
-    icon: iconBase + 'icon63.png'
-  });
-  var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(13.730871, 100.535575),
-    map: map,
-    icon: iconBase + 'icon63.png'
-  });
-  var marker = new google.maps.Marker({
-    position: new google.maps.LatLng(13.746264, 100.552365),
-    map: map,
-    icon: iconBase + 'icon63.png'
-  });
-
-//    var icons = {
-//        Hospital: {
-//            icon: iconBase + 'map-icon-hospital'
-//        }
-//    };
-
-//    var features = [
-//        {
-//            position: new google.maps.LatLng(13.757973, 100.484998),
-//            type: 'Hospital'
-//        }
-//    ];
-
-    // Create markers.
-//    features.forEach(function (feature) {
-//        var marker = new google.maps.Marker({
-//            position: feature.position,
-//            icon: icons[feature.type].icon,
-//            map: map
-//        });
-//    });
-}
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        }
+        async function showPosition(position) {
+            console.log("showPosition")
+            latitude = await position.coords.latitude;
+            longitude = await position.coords.longitude;
+            initMap(latitude, longitude);
+            console.log(latitude);
+            console.log(longitude);
+            showPage();
+};
+window.onload = getLocation;
+    }
+    }
