@@ -18,7 +18,7 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <!--<script src="js/HospitalLocation.js"></script>-->
+        <script src="js/HospitalLocation.js"></script>
 
     </head>
 
@@ -50,11 +50,11 @@
         })
         var infowindow = new google.maps.InfoWindow();
         var marker, i;
-        var img = '';
+        var img = 'img/hospital.png';
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: 13.650946, lng: 100.494738},
-                zoom: 15
+                zoom: 10
             });
             HospitalLocation.map(location => {
                 marker = new google.maps.Marker({
