@@ -25,6 +25,7 @@ public class HospitalLocation {
     private float lat;
     private float lng;
     private String type;
+    private String tel;
 
     public HospitalLocation() {
     }
@@ -36,6 +37,7 @@ public class HospitalLocation {
         lat = rs.getFloat("lat");
         lng = rs.getFloat("lng");
         type = rs.getString("type");
+        tel = rs.getString("tel");
     }
 
     public HospitalLocation(int id, String name, String address, float lat, float lng, String type) {
@@ -45,6 +47,7 @@ public class HospitalLocation {
         this.lat = lat;
         this.lng = lng;
         this.type = type;
+        this.tel = tel;
     }
 
     public void setId(int id) {
@@ -71,6 +74,11 @@ public class HospitalLocation {
         this.type = type;
     }
 
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+    
+
     public int getId() {
         return id;
     }
@@ -95,10 +103,18 @@ public class HospitalLocation {
         return type;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
     @Override
     public String toString() {
-        return "HospitalLocation{" + "id=" + id + ", name=" + name + ", address=" + address + ", lat=" + lat + ", lng=" + lng + ", type=" + type + '}';
+        return "HospitalLocation{" + "id=" + id + ", name=" + name + ", address=" + address + ", lat=" + lat + ", lng=" + lng + ", type=" + type + ", tel=" + tel + '}';
     }
+    
+    
+
+    
     
     
     
