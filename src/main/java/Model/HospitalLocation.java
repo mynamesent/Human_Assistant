@@ -147,10 +147,10 @@ public class HospitalLocation {
     
     public static void main(String[] args) throws SQLException {
         HospitalLocation h = new HospitalLocation();
-        List<HospitalLocation> trashList = h.pullHospitalLocation();
+        List<HospitalLocation> hosList = h.pullHospitalLocation();
         System.out.println("Size : "+h.pullHospitalLocation().size());
-        for(int i=0;i<trashList.size();i++){
-            System.out.println(trashList.get(i));
+        for(int i=0;i<hosList.size();i++){
+            System.out.println(hosList.get(i));
         }
         
     }
