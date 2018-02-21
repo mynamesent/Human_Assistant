@@ -5,7 +5,14 @@
  */
 package Model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +27,15 @@ public class HospitalLocation {
     private String type;
 
     public HospitalLocation() {
+    }
+    
+    public HospitalLocation(ResultSet rs) throws SQLException {
+        id = rs.getInt("id");
+        name = rs.getString("name");
+        address = rs.getString("address");
+        lat = rs.getFloat("lat");
+        lng = rs.getFloat("lng");
+        type = rs.getString("type");
     }
 
     public HospitalLocation(int id, String name, String address, float lat, float lng, String type) {
@@ -86,9 +102,42 @@ public class HospitalLocation {
     
     
     
-    public static List<HospitalLocation> pullLocation(String param){
+    public static List<HospitalLocation> pullHospitalLocation() throws SQLException{
         
-        
+       List<HospitalLocation> hosLoList = null;
+        HospitalLocation hosLo = null;
+        Connection con = null;
+        try{
+            con = ConnectionBuilder.getMySqlCond();
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM HospitalLocation");
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                hosLo = new HospitalLocation(rs);
+                if (hosLoList == null) {
+                    hosLoList = new ArrayList();
+                }
+                hosLoList.add(hosLo);
+            }
+            rs.close();
+            pstm.close();
+            con.close();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HospitalLocation.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(HospitalLocation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return hosLoList;
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        HospitalLocation h = new HospitalLocation();
+        List<HospitalLocation> trashList = h.pullHospitalLocation();
+        System.out.println("Size : "+h.pullHospitalLocation().size());
+        for(int i=0;i<trashList.size();i++){
+            System.out.println(trashList.get(i));
+        }
         
     }
-}
+        
+    }
+
