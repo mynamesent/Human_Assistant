@@ -34,6 +34,9 @@
             </nav>
         </div>
         <div id="map"></div>
+        <c:forEach items="${HospitalList}" var="hos">
+            <input type="hidden" name="hos[${hos.id}]" value='{ "lat":"${hos.lat}", "lng":"${hos.lng}","address": "${hos.address}", "Name": "${hos.name}" , "Tel": "${hos.tel}"}' />
+        </c:forEach>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1eb_09Gm7rRg3SOMROgnIoTG5_kdrycA&callback=initMap">
         </script>
     </body>
